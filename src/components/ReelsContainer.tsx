@@ -93,7 +93,7 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center snap-start">
+    <div className="h-[88vh] md:h-screen flex items-center justify-center snap-start">
       <div
         ref={containerRef}
         className="relative h-full w-[411px] gap-3 flex items-end justify-start p-4 rounded overflow-hidden"
@@ -250,9 +250,9 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
             <Image
               src={reel.user.avatar}
               alt="user"
-              width={32} // or the exact pixel size needed
+              width={32} 
               height={32}
-              className="w-full h-full rounded-full"
+              className="w-full h-full rounded"
             />
           </div>
         </div>
