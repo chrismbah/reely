@@ -14,4 +14,20 @@ export default {
       },
     },
   },
+  plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    require('tailwind-scrollbar')({ preferredStrategy: 'pseudoelements' }),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function ({ addUtilities }: {addUtilities: any}) {
+      addUtilities({
+        ".hide-scrollbar": {
+          "-ms-overflow-style": "none" /* IE and Edge */,
+          "scrollbar-width": "none" /* Firefox */,
+        },
+        ".hide-scrollbar::-webkit-scrollbar": {
+          display: "none" /* Chrome, Safari and Opera */,
+        },
+      });
+    },
+  ],
 } satisfies Config;

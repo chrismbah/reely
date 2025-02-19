@@ -185,7 +185,7 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
                       <Image
                         src={tag.product.image}
                         alt={tag.product.name}
-                        width={40} // w-10 in Tailwind is usually 40px
+                        width={40} 
                         height={40}
                         className="w-10 h-10 object-cover"
                       />
@@ -269,7 +269,7 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
 
 const ReelsContainer = () => {
   return (
-    <div className="flex-1 h-screen overflow-y-scroll snap-y snap-mandatory">
+    <div className="flex-1 h-screen hide-scrollbar overflow-y-scroll snap-y snap-mandatory">
       {reelsData.map((reel) => (
         <ReelItem key={reel.id} reel={reel} />
       ))}
