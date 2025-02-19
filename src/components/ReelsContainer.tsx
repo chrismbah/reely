@@ -15,23 +15,29 @@ import {
   OptionsIcons,
 } from "@/components/icons";
 import ShareModal from "./ShareModal";
-import { ReelData } from "@/types";
+import { ReelData, ReelItemProps } from "@/types";
 import { reelsData } from "@/data/reels";
 import { AiFillProduct } from "react-icons/ai";
 import { IoMusicalNotesSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import { productVariants } from "@/variants";
 
-const ReelItem = ({ reel }: { reel: ReelData }) => {
+const ReelItem = ({ reel, isMuted, onMuteToggle }: ReelItemProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
   const [showPlayButton, setShowPlayButton] = useState(false);
   const [showTagModal, setShowTagModal] = useState(false);
   const [hasLikedVideo, setHasLikedVideo] = useState(false);
   const [likeCount, setLikeCount] = useState(reel.likes);
   const [showShareModal, setShowShareModal] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Update video muted state when isMuted prop changes
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
 
   // Intersection Observer for video playback
   useEffect(() => {
@@ -43,7 +49,7 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
           if (entry.isIntersecting) {
             videoRef.current?.play();
             setIsPlaying(true);
-            setShowPlayButton(false); // Hide play overlay when the video auto-plays
+            setShowPlayButton(false);
           } else {
             videoRef.current?.pause();
             if (videoRef.current) videoRef.current.currentTime = 0;
@@ -77,7 +83,6 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
     }
   };
 
-  // Handle video click for play/pause
   const handleVideoClick = () => {
     togglePlay();
   };
@@ -98,7 +103,6 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
         ref={containerRef}
         className="relative h-full w-[411px] gap-3 flex items-end justify-start p-4 rounded overflow-hidden"
       >
-        {/* Video Element */}
         <video
           ref={videoRef}
           className="relative w-[351px] h-full object-cover rounded cursor-pointer"
@@ -110,7 +114,6 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
           <source src={reel.videoUrl} type="video/mp4" />
         </video>
 
-        {/* Centered Play/Pause Button - Only shows on pause or hover */}
         <div
           className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 transition-opacity duration-300 ${
             showPlayButton || !isPlaying ? "opacity-100" : "opacity-0"
@@ -128,14 +131,8 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
           </button>
         </div>
 
-        {/* Mute Button - Top Right */}
         <button
-          onClick={() => {
-            if (videoRef.current) {
-              videoRef.current.muted = !isMuted;
-              setIsMuted(!isMuted);
-            }
-          }}
+          onClick={() => onMuteToggle(!isMuted)}
           className="absolute top-6 right-14 p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors z-20"
         >
           {isMuted ? (
@@ -185,7 +182,7 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
                       <Image
                         src={tag.product.image}
                         alt={tag.product.name}
-                        width={40} 
+                        width={40}
                         height={40}
                         className="w-10 h-10 object-cover"
                       />
@@ -250,7 +247,7 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
             <Image
               src={reel.user.avatar}
               alt="user"
-              width={32} 
+              width={32}
               height={32}
               className="w-full h-full rounded"
             />
@@ -268,10 +265,17 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
 };
 
 const ReelsContainer = () => {
+  const [isMuted, setIsMuted] = useState(true);
+
   return (
     <div className="flex-1 h-screen hide-scrollbar overflow-y-scroll snap-y snap-mandatory">
       {reelsData.map((reel) => (
-        <ReelItem key={reel.id} reel={reel} />
+        <ReelItem
+          key={reel.id}
+          reel={reel}
+          isMuted={isMuted}
+          onMuteToggle={setIsMuted}
+        />
       ))}
     </div>
   );

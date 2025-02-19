@@ -23,3 +23,8 @@ export interface ReelData {
   productTags: ProductTag[];
 }
 
+export interface ReelItemProps {
+  reel: ReelData;
+  isMuted: boolean;
+  onMuteToggle: (muted: boolean) => void;
+}
