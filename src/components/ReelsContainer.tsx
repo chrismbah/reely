@@ -93,7 +93,7 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
   };
 
   return (
-    <div className="h-[88dvh] md:h-[100dvh] flex items-center justify-center snap-start">
+    <div className="h-[88vh] md:h-[100vh] flex items-center justify-center snap-start">
       <div
         ref={containerRef}
         className="relative h-full w-[411px] gap-3 flex items-end justify-start p-4 rounded overflow-hidden"
