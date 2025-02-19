@@ -15,7 +15,7 @@ import {
   OptionsIcons,
 } from "@/components/icons";
 import ShareModal from "./ShareModal";
-import { ReelData, ReelItemProps } from "@/types";
+import { ReelItemProps } from "@/types";
 import { reelsData } from "@/data/reels";
 import { AiFillProduct } from "react-icons/ai";
 import { IoMusicalNotesSharp } from "react-icons/io5";
