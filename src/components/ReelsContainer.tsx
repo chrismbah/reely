@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   BsFillPlayFill,
   BsPauseFill,
@@ -42,6 +43,7 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
           if (entry.isIntersecting) {
             videoRef.current?.play();
             setIsPlaying(true);
+            setShowPlayButton(false); // Hide play overlay when the video auto-plays
           } else {
             videoRef.current?.pause();
             if (videoRef.current) videoRef.current.currentTime = 0;
@@ -145,10 +147,12 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
 
         <div className="user-info w-[76%] absolute bottom-8 left-8 z-10 flex flex-col gap-4">
           <div className="flex items-center gap-2">
-            <img
+            <Image
               src={reel.user.avatar}
               alt="user"
-              className="w-8 h-8 rounded-full object-cover"
+              width={32}
+              height={32}
+              className="rounded-full object-cover"
             />
             <p className="text-sm">{reel.user.name}</p>
             &#183;
@@ -178,9 +182,11 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
                       className="p-3 hover:bg-white/20 transition-colors flex items-center gap-3 cursor-pointer"
                       onClick={() => window.open(tag.product.url, "_blank")}
                     >
-                      <img
+                      <Image
                         src={tag.product.image}
                         alt={tag.product.name}
+                        width={40} // w-10 in Tailwind is usually 40px
+                        height={40}
                         className="w-10 h-10 object-cover"
                       />
                       <div>
@@ -241,12 +247,18 @@ const ReelItem = ({ reel }: { reel: ReelData }) => {
             <OptionsIcons />
           </button>
           <div className="user w-6 h-6 overflow-hidden rounded">
-            <img src={reel.user.avatar} alt="user" className="w-full h-full" />
+            <Image
+              src={reel.user.avatar}
+              alt="user"
+              width={32} // or the exact pixel size needed
+              height={32}
+              className="w-full h-full rounded-full"
+            />
           </div>
         </div>
         {showShareModal && (
           <ShareModal
-          shareUrl={`${window.location.origin}/reels/${reel.id}`}
+            shareUrl={`${window.location.origin}/reels/${reel.id}`}
             onClose={() => setShowShareModal(false)}
           />
         )}
