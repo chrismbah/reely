@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reely!
+
+A video reels page for Toastd that mimics Instagram’s scrolling experience. The page features smooth vertical scrolling, auto-playing videos (with pause when off-screen), product tagging, and social interactions like "likes" and "shares". Built with Next.js and Tailwind CSS.
+
+[View Live Demo](https://reely-eight.vercel.app/reels)
+
+## Overview
+
+Toastd Reels is a modern, responsive video reels page designed to offer an Instagram-like experience. Videos automatically play when visible in the viewport and pause when scrolled out of view. Users can interact with videos through like, share, and product tag features, making it a dynamic and engaging interface.
+
+## Features
+1. Vertical Scrolling Layout:
+
+    * Videos are arranged in a full-screen vertical feed.
+    * Uses CSS scroll snap for smooth transitions.
+
+2. Auto-play and Pause:
+
+    * Videos auto-play when at least 60% visible and pause/reset when scrolled out.
+    * Implemented with the Intersection Observer API.
+
+3. Video Controls:
+
+    * Play/Pause on tap.
+    * Mute/Unmute control.
+    * Global mute state ensures consistency across videos.
+
+4. Social Interactions:
+
+    * Like button with dynamic like count.
+    * Share functionality to multiple social media via a modal with smooth Framer Motion animations.
+
+5. Product Tagging:
+
+    * Display product tags overlaying videos.
+    * Clicking tags navigates to the corresponding product page.
+
+6. Responsive Design:
+
+    * Optimized for mobile, tablet, and desktop.
+    * Built with Tailwind CSS for responsive, utility-first styling.
+
+7. Optimized Assets:
+
+    * Uses Next.js’ `<Image />` component for optimized image delivery.
+
+## Tech Stack
+* Framework: Next.js (App Router)
+* Styling: Tailwind CSS
+* Animations: Framer Motion
+* Icons: React Icons
+* Data: Dummy data from a custom data file
+
+Deployment: [Vercel](https://reely-eight.vercel.app/reels)
+
+## Project Structure
+
+```
+.
+├── app/                   # Next.js App Router pages
+│   ├── reels/             # Dynamic route for individual reels
+│       └── page.tsx           # Redirects to a default reel or renders feed
+├── components/            # Reusable components (ReelItem, ShareModal, SideBar, BottomNav, etc.)
+        └── icons/         # Custom Instagram Like Icons 
+├── data/                  # Dummy reel data (reelsData)
+├── types/                  # Data types
+├── public/                # Static assets (favicon, images, etc.)
+├── styles/                # Global styles (Tailwind configuration)
+├── next.config.js         # Next.js configuration (including external image domains)
+└── README.md              # This documentation file
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+* Node.js (version 14 or higher)
+* npm or yarn
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Installation
+1. Clone the repository:
+
+```
+git clone https://github.com/yourusername/toastd-reels.git
+
+cd toastd-reels
+```
+### Install dependencies:
+
+```
+npm install
+```
+or
+
+```
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running Locally
+To start the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm run dev
+```
+or
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+yarn dev
+```
 
-## Learn More
+Open http://localhost:3000 in your browser to view the app.
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
+This project is deployed on [Vercel](https://vercel.com). To deploy your own version:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push your code to your Git repository.
+2. Connect your repository to your deployment platform.
+3. The platform will automatically build and deploy your application.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For detailed deployment instructions, refer to the Next.js deployment documentation.
 
-## Deploy on Vercel
+### Design Choices
+#### User Experience:
+The interface mimics Instagram Reels to provide an intuitive, immersive, and engaging experience. Videos fill the viewport, and interactions are designed to be minimal and distraction-free.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Performance:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Autoplay Logic: Intersection Observer API ensures videos play only when in view.
+2. Image Optimization: Next.js ```<Image />``` component improves LCP and reduces bandwidth.
+3. Global Mute State: Ensures a consistent audio experience across the reel feed.
+4. Modularity and Flexibility:
+Components are built to be reusable, making it easier to integrate real API data in the future.
+
+#### Animations:
+Framer Motion is used to animate modals (e.g., product tags and share modal) for a smooth, modern UI.
+
+#### Known Issues & Future Improvements
+
+**Autoplay with Sound:**
+Due to browser policies, videos must start muted. Users must manually unmute if they wish to hear audio.
+
+#### Future Improvements
+**API Integration:**
+Replace dummy data with live API data for dynamic content updates.
+
+**Enhanced Social Interactions:**
+Implement additional interactions (comments, advanced share options, etc.).
+
+**Accessibility Enhancements:**
+Add ARIA labels, improve keyboard navigation, and further optimize for accessibility.
+
+**Analytics:**
+Integrate tracking for user engagement and interactions.
+
+## Contact
+For questions or further information, please reach out at mbahchris46@gmail.com.

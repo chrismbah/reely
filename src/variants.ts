@@ -7,14 +7,14 @@ export const productVariants = {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.25,
+        duration: 0.15,
       },
     },
     exit: {
       opacity: 0,
       scale: 0,
       transition: {
-        duration: 0.25,
+        duration: 0.15,
       },
     },
   };
